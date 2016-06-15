@@ -90,11 +90,7 @@ namespace NuGet.PackageManagement.VisualStudio
 
             var args = new Dictionary<string, object>();
 
-            args["Frameworks"] = _project
-                .GetSupportedFrameworksAsync(token)
-                .Result
-                .Select(f => NuGetFramework.Parse(f.FullName))
-                .Where(projectFramework => IsCompatible(projectFramework, supportedFrameworks))
+            args["Frameworks"] = supportedFrameworks
                 .ToArray();
 
             args["PackageTypes"] = packageTypes
