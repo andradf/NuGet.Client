@@ -44,7 +44,7 @@ namespace NuGet.Protocol.Core.v2
                         {
                             httpReq.UserAgent = _userAgent;
 
-                            if (httpReq.Headers.Get(AcceptLanguage.HeaderName)?.Length == 0 
+                            if (string.IsNullOrEmpty(httpReq.Headers.Get(AcceptLanguage.HeaderName)) 
                                 && !string.IsNullOrEmpty(acceptLanguage))
                             {
                                 httpReq.Headers.Add(AcceptLanguage.HeaderName, acceptLanguage);
