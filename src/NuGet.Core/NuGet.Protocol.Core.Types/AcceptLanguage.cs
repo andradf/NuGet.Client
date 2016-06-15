@@ -3,19 +3,21 @@
 
 using System;
 using System.Globalization;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace NuGet.Protocol.Core.Types
 {
     public static class AcceptLanguage
     {
+        public const string HeaderName = "Accept-Language";
+
         static AcceptLanguage()
         {
             // Set default Accept-Language header string
             AcceptLanguageString = CultureInfo.CurrentUICulture.ToString();
         }
-
-        public const string HeaderName = "Accept-language";
 
         public static string AcceptLanguageString { get; private set; }
 
@@ -32,7 +34,8 @@ namespace NuGet.Protocol.Core.Types
 
             if (!string.IsNullOrEmpty(AcceptLanguageString))
             {
-                client.DefaultRequestHeaders.Add(HeaderName, CultureInfo.CurrentUICulture.ToString());
+                client.DefaultRequestHeaders.AcceptLanguage.Add(
+                    StringWithQualityHeaderValue.Parse(AcceptLanguageString));
             }
         }
     }
