@@ -1,10 +1,8 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using System.IO;
 using System.Net;
-using NuGet.Common;
 using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
 
@@ -35,6 +33,7 @@ namespace NuGet.Protocol.Core.v2
                 return _lprepo;
             }
             var _userAgent = UserAgent.UserAgentString;
+            var acceptLanguage = AcceptLanguage.AcceptLanguageString;
             var events = repo as IHttpClientEvents;
             if (events != null)
             {
@@ -44,6 +43,11 @@ namespace NuGet.Protocol.Core.v2
                         if (httpReq != null)
                         {
                             httpReq.UserAgent = _userAgent;
+
+                            if (httpReq.Headers.Get(AcceptLanguage.HeaderName).Length == 0)
+                            {
+                                httpReq.Headers.Add(AcceptLanguage.HeaderName, acceptLanguage);
+                            }
                         }
                     };
             }

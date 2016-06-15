@@ -357,6 +357,9 @@ namespace NuGet.Protocol
             // Set user agent
             UserAgent.SetUserAgent(httpClient);
 
+            // Set accept-language header
+            AcceptLanguage.SetAcceptLanguageHeader(httpClient);
+
             return httpClient;
         }
 
