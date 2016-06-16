@@ -33,7 +33,6 @@ namespace NuGet.Protocol.Core.v2
                 return _lprepo;
             }
             var _userAgent = UserAgent.UserAgentString;
-            var acceptLanguage = AcceptLanguage.AcceptLanguageString;
             var events = repo as IHttpClientEvents;
             if (events != null)
             {
@@ -43,12 +42,6 @@ namespace NuGet.Protocol.Core.v2
                         if (httpReq != null)
                         {
                             httpReq.UserAgent = _userAgent;
-
-                            if (string.IsNullOrEmpty(httpReq.Headers.Get(AcceptLanguage.HeaderName)) 
-                                && !string.IsNullOrEmpty(acceptLanguage))
-                            {
-                                httpReq.Headers.Add(AcceptLanguage.HeaderName, acceptLanguage);
-                            }
                         }
                     };
             }
